@@ -1,7 +1,8 @@
 from PyQt5.QtWidgets import QApplication, QMainWindow, QFileDialog, QPushButton, QComboBox, QVBoxLayout, QWidget
 from .audio import audio
 from scipy.io import wavfile
-
+from PyQt5.QtMultimedia import QMediaPlayer, QMediaContent
+from PyQt5.QtCore import QUrl
 
 class Interfaz(QMainWindow):
     archivo = []
@@ -26,7 +27,9 @@ class Interfaz(QMainWindow):
         self.btn_robot = QPushButton("Robot", self)
         self.btn_robot.clicked.connect(self.procesar_audio_robot)
         
-        # Configurar el botón para exportar archivo
+        # # Configurar el botón para reproducir el audio
+        self.btn_reproducir = QPushButton("Reproducir", self)
+        self.btn_reproducir.clicked.connect(self.reproducir_audio)
         
         
         # Configurar el layout
@@ -35,14 +38,15 @@ class Interfaz(QMainWindow):
         layout.addWidget(self.btn_agudo)
         layout.addWidget(self.btn_grave)
         layout.addWidget(self.btn_robot)
-        
+        layout.addWidget(self.btn_reproducir)
         
         # Configurar el widget central
         central_widget = QWidget()
         central_widget.setLayout(layout)
         self.setCentralWidget(central_widget)
         
-        # inicializamos el archivos
+        #
+        self.playerMedia = QMediaPlayer(self)
         
     def agregar_archivo(self):
         opciones = QFileDialog.Options()
@@ -63,11 +67,18 @@ class Interfaz(QMainWindow):
     
 
     def procesar_audio_robot(self):
-        print("Procesando a audio grave")
+        print("Procesando a audio robot")
         audio.procesar_audio_robot(self.aud)
- 
-    
 
+            
+    def reproducir_audio(self):
+        opciones = QFileDialog.Options()
+        opciones |= QFileDialog.DontUseNativeDialog
+        archivo = QFileDialog.getOpenFileName(self, "Seleccionar Archivo que deseas reproducir", "", "Archivos de Audio (*.wav)", options=opciones)
+        contenido = QMediaContent(QUrl.fromLocalFile(archivo[0]))
+        player=self.playerMedia
+        player.setMedia(contenido)
+        player.play()
 
 
 if __name__ == '__main__':
