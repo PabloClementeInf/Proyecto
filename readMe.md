@@ -1,7 +1,7 @@
 # Proyecto de teoria de PDS 
 ## Procesador de audio
-### Autores:  Manuel Medina Martín, Pablo Clemente Infantes, Amador Carmona Méndez y Amadeo Martínez Sánchez
-##### Requisitos para poder ejecutar nuestro proyecto:
+##### Autores:  Manuel Medina Martín, Pablo Clemente Infantes, Amador Carmona Méndez y Amadeo Martínez Sánchez
+### Requisitos para poder ejecutar nuestro proyecto:
 Instalar con pip install PyQT, pydub y scipy con los siguientes comandos:
 ~~~bash
 $pip install PyQT5
@@ -13,12 +13,12 @@ Documentacion de pydub: https://github.com/jiaaro/pydub
 Documentacion de PyQT: https://doc.qt.io/qtforpython-6/
 
 Documentacion de scipy: https://docs.scipy.org/doc/scipy/
-##### Ejecucion de nuestro proyecto:
+### Ejecucion de nuestro proyecto:
 Para ejecutar nuestro proyecto ejecutar hay que ejecutar el main con el comando:
 ~~~bash
 $python main.py
 ~~~
-##### Estructuración y archivos del proyecto:
+### Estructuración y archivos del proyecto:
 Carpeta proyecto: carpeta principal del proyecto en la que encontramos los siquientes archivos y/o carpetas:
 - main.py: archivo principal del proyecto en el que se ejecuta la interfaz 
 - modules: carpeta en la que tenemos los diferentes modulos donde im
