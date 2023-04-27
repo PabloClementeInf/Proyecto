@@ -19,12 +19,12 @@ Para ejecutar nuestro proyecto ejecutar hay que ejecutar el main con el comando:
 $python main.py
 ~~~
 ### Estructuración y archivos del proyecto:
-Carpeta proyecto: carpeta principal del proyecto en la que encontramos los siquientes archivos y/o carpetas:
-- main.py: archivo principal del proyecto en el que se ejecuta la interfaz 
-- modules: carpeta en la que tenemos los diferentes modulos donde im
+proyecto: carpeta principal del proyecto en la que encontramos los siquientes archivos y/o carpetas:
+- main.py: archivo principal del proyecto en el que se ejecuta la interfaz. 
+- modules: carpeta en la que tenemos los diferentes modulos donde implementamos la interfaz y todas las funcionalidades del proyecto.
 - --init.py: para que python interprete que la carpeta modules es un paquete/libreria.
-- --gui.py: interfaz del proyecto
-- --audio.py: donde tenemos las funcionalidades del proyecto: filtros
-- data: carpeta con todos los audios con los que se trabaje y donde se extraeran los resultados
+- --gui.py: interfaz del proyecto donde tambien implementamos alguna funcionalidad como el reproductor de audios gracias al paquete PyQT.
+- --audio.py: donde tenemos las funcionalidades del proyecto relacionadas con el tratamiento de audios como son los filtros.
+- data: carpeta con todos los audios con los que se trabaje y donde se extraeran los resultados.
 
 
