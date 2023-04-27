@@ -23,3 +23,10 @@ Carpeta proyecto: carpeta principal del proyecto en la que encontramos los siqui
 - --gui.py: interfaz del proyecto
 - --audio.py: donde tenemos las funcionalidades del proyecto
 - data: carpeta con todos los audios con los que se trabaje y donde se extraeran los resultados
+probando github amador aaaaaaaa
+a
+a
+a
+aa
+a
+

@@ -4,15 +4,17 @@ from scipy.io import wavfile
 
 
 class Interfaz(QMainWindow):
+    archivo = []
+    
     def __init__(self):
         super().__init__()
         
         self.setWindowTitle("Aplicación de Conversión de Audio")
         
         
-        # Configurar el botón para agregar archivos
-        self.btn_agregar = QPushButton("Agregar Archivos", self)
-        self.btn_agregar.clicked.connect(self.agregar_archivos)
+        # Configurar el botón para seleccionar archivo
+        self.btn_agregar = QPushButton("Seleccionar Archivo", self)
+        self.btn_agregar.clicked.connect(self.agregar_archivo)
         
         # Configurar los botones para procesar el audio
         self.btn_agudo = QPushButton("Agudo", self)
@@ -24,9 +26,8 @@ class Interfaz(QMainWindow):
         self.btn_robot = QPushButton("Robot", self)
         self.btn_robot.clicked.connect(self.procesar_audio_robot)
         
-        # Configurar el botón para exportar archivos
-        self.btn_exportar = QPushButton("Exportar Archivos", self)
-        self.btn_exportar.clicked.connect(self.exportar_archivos)
+        # Configurar el botón para exportar archivo
+        
         
         # Configurar el layout
         layout = QVBoxLayout()
@@ -34,43 +35,39 @@ class Interfaz(QMainWindow):
         layout.addWidget(self.btn_agudo)
         layout.addWidget(self.btn_grave)
         layout.addWidget(self.btn_robot)
-        layout.addWidget(self.btn_exportar)
+        
         
         # Configurar el widget central
         central_widget = QWidget()
         central_widget.setLayout(layout)
         self.setCentralWidget(central_widget)
         
-        # Configurar la lista de archivos
-        self.archivos = []
-    
-    def agregar_archivos(self):
+        # inicializamos el archivos
+        
+    def agregar_archivo(self):
         opciones = QFileDialog.Options()
         opciones |= QFileDialog.DontUseNativeDialog
-        archivos, _ = QFileDialog.getOpenFileNames(self, "Seleccionar Archivos", "", "Archivos de Audio (*.wav)", options=opciones)
-        if archivos:
-            self.archivos += archivos
-            print(f"Archivos seleccionados: {self.archivos}")
+        archivo = QFileDialog.getOpenFileName(self, "Seleccionar Archivo", "", "Archivos de Audio (*.wav)", options=opciones)
+        self.aud=audio.cargar_audio(archivo)
+        if archivo:
+            print("Archivos seleccionados: ",archivo)
 
     def procesar_audio_agudo(self):
-        print
-        for archivo in self.archivos:
-            salida=audio.procesar_audio_agudo(archivo)
-        wavfile.write('agudo.wav', 8000, salida.astype('int16'))
+        print("Procesando a audio agudo")
+        audio.procesar_audio_agudo(self.aud)
+    #wavfile.write('agudo.wav', 8000, salida.astype('int16'))
 
     def procesar_audio_grave(self):
-        for archivo in self.archivos:
-            salida=audio.procesar_audio_grave(archivo)
-        wavfile.write('grave.wav', 8000, salida.astype('int16'))
+        print("Procesando a audio grave")
+        audio.procesar_audio_grave(self.aud)
+    
 
     def procesar_audio_robot(self):
-        for archivo in self.archivos:
-            salida=audio.procesar_audio_robot(archivo)
-        wavfile.write('Robot.wav', 8000, salida.astype('int16'))
+        print("Procesando a audio grave")
+        audio.procesar_audio_robot(self.aud)
+ 
     
-    def exportar_archivos(self):
-        for archivo in self.archivos:
-            print(f"Exportando archivo: {archivo}")
+
 
 
 if __name__ == '__main__':
