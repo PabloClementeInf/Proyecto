@@ -2,6 +2,7 @@ import os
 from pydub import AudioSegment
 from pvrecorder import PvRecorder
 import wave, struct
+import time
 
 class audio:
     
@@ -32,19 +33,17 @@ class audio:
                 #print(f"[{index}] {device}")
         recorder = PvRecorder(device_index=0, frame_length=512)
         audio=[]
-        ruta="/Users/amade/Documents/GitHub/Proyecto/data/audionuevo"
-        try:
-                recorder.start()
-                while True:
-                        frame = recorder.read()
-                        audio.extend(frame)
-        except KeyboardInterrput:
-                recorder.stop()
-                with wave.open(ruta, 'w') as f:
-                        f.setparams((1,2,16000,512,"NONE","NONE"))
-                        f.writeframes(struct.pack("h"*len(audio), *audio))
-        finally:
-                recorder.delete()
+        ruta="/Users/amade/Documents/GitHub/Proyecto/data/audionuevo.wav"
+        recorder.start()
+        timeout = 5
+        timeout_start = time.time()
+        while time.time() < timeout_start + timeout:
+                frame = recorder.read()
+                audio.extend(frame)
+        recorder.stop()
+        with wave.open(ruta, 'w') as f:
+                f.setparams((1,2,16000,512,"NONE","NONE"))
+                f.writeframes(struct.pack("h"*len(audio), *audio))
 
 
 
