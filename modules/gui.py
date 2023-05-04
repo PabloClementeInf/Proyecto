@@ -24,8 +24,8 @@ class Interfaz(QMainWindow):
         self.btn_grave = QPushButton("Grave", self)
         self.btn_grave.clicked.connect(self.procesar_audio_grave)
         
-        self.btn_robot = QPushButton("Robot", self)
-        self.btn_robot.clicked.connect(self.procesar_audio_robot)
+        self.btn_robot = QPushButton("Grabar audio", self)
+        self.btn_robot.clicked.connect(self.grabar_audio)
         
         # # Configurar el botón para reproducir el audio
         self.btn_reproducir = QPushButton("Reproducir", self)
@@ -66,9 +66,9 @@ class Interfaz(QMainWindow):
         audio.procesar_audio_grave(self.aud)
     
 
-    def procesar_audio_robot(self):
+    def grabar_audio(self):
         print("Procesando a audio robot")
-        audio.procesar_audio_robot(self.aud)
+        audio.grabar_audio()
 
             
     def reproducir_audio(self):

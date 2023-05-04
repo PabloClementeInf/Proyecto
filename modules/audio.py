@@ -1,6 +1,8 @@
 import os
 from pydub import AudioSegment
-#from pydub.effects import robotize
+from pvrecorder import PvRecorder
+import wave, struct
+
 class audio:
     
     #ruta="/Users/amade/Documents/GitHub/Proyecto/data/audionuevo"
@@ -25,13 +27,24 @@ class audio:
         nuevoaudio.export(nombre_salida, format="wav")
 
 
-    def procesar_audio_robot(audio):
-        x=2
-        #nuevoaudio= robotize(audio, 1)
-        #ruta='C:\Users\amade\Documents\GitHub\Proyecto\data\audio_nuevo'
-        #nombre_salida = f"{ruta[:-4]}_grave.wav"
-        #nuevoaudio.export(nombre_salida, format="wav")
-
+    def grabar_audio():
+        #for index, device in enumerate(PvRecorder.get_audio_devices()):
+                #print(f"[{index}] {device}")
+        recorder = PvRecorder(device_index=0, frame_length=512)
+        audio=[]
+        ruta="/Users/amade/Documents/GitHub/Proyecto/data/audionuevo"
+        try:
+                recorder.start()
+                while True:
+                        frame = recorder.read()
+                        audio.extend(frame)
+        except KeyboardInterrput:
+                recorder.stop()
+                with wave.open(ruta, 'w') as f:
+                        f.setparams((1,2,16000,512,"NONE","NONE"))
+                        f.writeframes(struct.pack("h"*len(audio), *audio))
+        finally:
+                recorder.delete()
 
 
 
