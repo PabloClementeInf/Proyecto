@@ -24,8 +24,8 @@ class Interfaz(QMainWindow):
         self.btn_grave = QPushButton("Grave", self)
         self.btn_grave.clicked.connect(self.procesar_audio_grave)
         
-        self.btn_robot = QPushButton("Grabar audio", self)
-        self.btn_robot.clicked.connect(self.grabar_audio)
+        self.btn_grabar = QPushButton("Grabar audio", self)
+        self.btn_grabar.clicked.connect(self.grabar_audio)
         
         # # Configurar el botón para reproducir el audio
         self.btn_reproducir = QPushButton("Reproducir", self)
@@ -37,7 +37,7 @@ class Interfaz(QMainWindow):
         layout.addWidget(self.btn_agregar)
         layout.addWidget(self.btn_agudo)
         layout.addWidget(self.btn_grave)
-        layout.addWidget(self.btn_robot)
+        layout.addWidget(self.btn_grabar)
         layout.addWidget(self.btn_reproducir)
         
         # Configurar el widget central
@@ -67,7 +67,7 @@ class Interfaz(QMainWindow):
     
 
     def grabar_audio(self):
-        print("Procesando a audio robot")
+        print("Grabando audio")
         audio.grabar_audio()
 
             
