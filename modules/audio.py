@@ -1,12 +1,13 @@
 from cmath import log
-import os
 from pydub import AudioSegment
 import numpy as np
 from pvrecorder import PvRecorder
 from scipy import signal
 import wave, struct
-from scipy.io import wavfile
 import time
+import librosa
+import soundfile as sf
+import random
 
 class audio:
     
@@ -19,13 +20,45 @@ class audio:
 
 
     def procesar_audio_agudo(audio):
-        nuevo_rate = audio.frame_rate * 2
-        nuevoaudio = audio._spawn(audio.raw_data, overrides={'frame_rate':nuevo_rate})
+        
         ruta="./data/audionuevo"
-        nombre_salida = f"{ruta[:-4]}_agudo.wav"
-        nuevoaudio.export(nombre_salida, format="wav")
+        nombre_salida = f"{ruta[:-5]}_agudo.wav"
+        audio.export(nombre_salida, format="wav")
+        y, sr = librosa.load('./data/audio_agudo.wav')
+
+        nuevotono = librosa.effects.pitch_shift(y,sr=sr,n_steps=4)
+        ruta="./data/audionuevo"
+        nombre_salida = f"{ruta[:-5]}_agudo.wav"
+        sf.write(nombre_salida, nuevotono,sr)
     
-    def procesar_audio_grave(audio):
+    def procesar_audioa(audio):
+        
+        ruta="./data/audionuevo"
+        nombre_salida = f"{ruta[:-5]}_agudo.wav"
+        audio.export(nombre_salida, format="wav")
+        y, sr = librosa.load('./data/audio_agudo.wav')
+
+        nuevotono = librosa.effects.pitch_shift(y,sr=sr,n_steps=-4)
+        ruta="./data/audionuevo"
+        nombre_salida = f"{ruta[:-5]}_grave.wav"
+        sf.write(nombre_salida, nuevotono,sr)
+
+    def procesar_audio_alien(audio):
+        #Creamos un audio auxiliar
+        ruta="./data/audionuevo"
+        nombre_salida = f"{ruta[:-5]}_agudo.wav"
+        audio.export(nombre_salida, format="wav")
+        y, sr = librosa.load('./data/audio_agudo.wav')
+        t = np.arange(len(y)) / sr
+        carrier = np.sin(2 * np.pi * 1500 * t)
+        audio_alien = y * (2 * carrier)
+
+
+        ruta="./data/audionuevo"
+        nombre_salida = f"{ruta[:-5]}_alien.wav"
+        sf.write(nombre_salida, audio_alien,sr)
+
+    def procesar_audio_cueva(audio):
         #Cargamos el filtro de cueva
         filter = AudioSegment.from_file("./filter/Cave.wav")
         #Transformamos de AudioSegment a array numpy
@@ -43,11 +76,8 @@ class audio:
         audio1_conv = audio1_conv/ np.max(np.abs(audio1_conv))
 
         #Transformamos de np.array a AudioSegment
-        wavfile.write("./data/auxiliar.wav",audio.frame_rate, audio1_conv)
-
         shifted = audio1_conv * (2 ** 31 - 1)   # Data ranges from -1.0 to 1.0
         audio1_conv = shifted.astype(np.int32)
-
         sound = AudioSegment(
             audio1_conv.tobytes(),
             frame_rate=audio.frame_rate,
@@ -56,7 +86,7 @@ class audio:
         )
         nuevoaudio = sound._spawn(sound.raw_data)
         ruta="./data/audionuevo"
-        nombre_salida = f"{ruta[:-4]}_grave.wav"
+        nombre_salida = f"{ruta[:-5]}_cueva.wav"
         nuevoaudio.export(nombre_salida, format="wav")
 
     def grabar_audio():
