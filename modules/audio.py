@@ -31,12 +31,12 @@ class audio:
         nombre_salida = f"{ruta[:-5]}_agudo.wav"
         sf.write(nombre_salida, nuevotono,sr)
     
-    def procesar_audioa(audio):
+    def procesar_audio_ave(audio):
         
         ruta="./data/audionuevo"
-        nombre_salida = f"{ruta[:-5]}_agudo.wav"
+        nombre_salida = f"{ruta[:-5]}_grave.wav"
         audio.export(nombre_salida, format="wav")
-        y, sr = librosa.load('./data/audio_agudo.wav')
+        y, sr = librosa.load('./data/audio_grave.wav')
 
         nuevotono = librosa.effects.pitch_shift(y,sr=sr,n_steps=-4)
         ruta="./data/audionuevo"
@@ -46,17 +46,47 @@ class audio:
     def procesar_audio_alien(audio):
         #Creamos un audio auxiliar
         ruta="./data/audionuevo"
-        nombre_salida = f"{ruta[:-5]}_agudo.wav"
+        nombre_salida = f"{ruta[:-5]}_alien.wav"
         audio.export(nombre_salida, format="wav")
-        y, sr = librosa.load('./data/audio_agudo.wav')
+        y, sr = librosa.load('./data/audio_alien.wav')
         t = np.arange(len(y)) / sr
         carrier = np.sin(2 * np.pi * 1500 * t)
         audio_alien = y * (2 * carrier)
 
-
         ruta="./data/audionuevo"
         nombre_salida = f"{ruta[:-5]}_alien.wav"
         sf.write(nombre_salida, audio_alien,sr)
+
+    def procesar_audio_grave(audio):
+
+        # Cargar el audio de ruido de fondo de radio
+        audio_radio = "./filter/radio.wav"
+        radio = AudioSegment.from_wav(audio_radio)
+        
+        # Ajustar la duración del ruido de fondo al mismo que el audio original
+        radio = radio[:len(audio)]
+        
+        # Ajustar el volumen del ruido de fondo
+        ajuste = 10
+        radio = radio - ajuste  # Ajustar el rango del volumen aquí
+        
+        audio = audio - 100
+        # Mezclar el audio original con el ruido de fondo
+        mixed_audio = audio.overlay(radio)
+        #Creamos un audio auxiliar
+        ruta="./data/audionuevo"
+        nombre_salida = f"{ruta[:-5]}_radio.wav"
+        mixed_audio.export(nombre_salida, format="wav")
+        y, sr = librosa.load('./data/audio_radio.wav')
+        # Aplicar la ecualización
+        eq_audio = y * (10 ** (-10 / 20))
+
+        # Normalizar el audio para evitar la distorsión
+        eq_audio /= np.max(np.abs(eq_audio))
+        ruta="./data/audionuevo"
+        nombre_salida = f"{ruta[:-5]}_radio.wav"
+        sf.write(nombre_salida, eq_audio,sr)
+
 
     def procesar_audio_cueva(audio):
         #Cargamos el filtro de cueva
