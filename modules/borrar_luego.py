@@ -1,30 +1,12 @@
-from cmath import log
-import os
-from pydub import AudioSegment
-import numpy as np
-from pvrecorder import PvRecorder
-from scipy import signal
-import wave, struct
-from scipy.io import wavfile
-import time
 
-class audio:
-    
-
-    #ruta="/Users/amade/Documents/GitHub/Proyecto/data/audionuevo"
-    
-    def cargar_audio(nombre_archivo):
-        ruta_archivo = nombre_archivo
-        return AudioSegment.from_file(ruta_archivo[0])
-
-
-    def procesar_audio_agudo(audio):
-        nuevo_rate = audio.frame_rate * 2
+    """def procesar_audio_grave(audio):
+        nuevo_rate = int(audio.frame_rate * 0.5)
         nuevoaudio = audio._spawn(audio.raw_data, overrides={'frame_rate':nuevo_rate})
         ruta="./data/audionuevo"
-        nombre_salida = f"{ruta[:-4]}_agudo.wav"
+        nombre_salida = f"{ruta[:-4]}_grave.wav"
         nuevoaudio.export(nombre_salida, format="wav")
-    
+        
+
     def procesar_audio_grave(audio):
         #Cargamos el filtro de cueva
         filter = AudioSegment.from_file("./filter/Cave.wav")
@@ -59,23 +41,19 @@ class audio:
         nombre_salida = f"{ruta[:-4]}_grave.wav"
         nuevoaudio.export(nombre_salida, format="wav")
 
-    def grabar_audio():
-        #for index, device in enumerate(PvRecorder.get_audio_devices()):
-                #print(f"[{index}] {device}")
-        recorder = PvRecorder(device_index=0, frame_length=512)
-        audio=[]
-        ruta="./data/audionuevo.wav"
-        recorder.start()
-        timeout = 5
-        timeout_start = time.time()
-        while time.time() < timeout_start + timeout:
-                frame = recorder.read()
-                audio.extend(frame)
-        recorder.stop()
-        with wave.open(ruta, 'w') as f:
-                f.setparams((1,2,16000,512,"NONE","NONE"))
-                f.writeframes(struct.pack("h"*len(audio), *audio))
+        """
 
-    def get_array_of_samples(self):
-        return array.array(self.array_type, self._data)
+         """
+    def procesar_audio_grave(audio):
+        octave_adjustment = 1.5  # Valor para controlar el efecto de robot
+        audio = audio._spawn(audio.raw_data, overrides={
+            "frame_rate": int(audio.frame_rate * (2.0 ** octave_adjustment))
+        })
+        # Aplicar un filtro de velocidad
+        speed_factor = 1.2  # Factor de velocidad para el filtro
+        audio = audio.speedup(playback_speed=speed_factor)
 
+        ruta="./data/audionuevo"
+        nombre_salida = f"{ruta[:-4]}_grave.wav"
+        audio.export(nombre_salida, format="wav")
+        """
