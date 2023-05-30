@@ -57,7 +57,7 @@ class audio:
         nombre_salida = f"{ruta[:-5]}_alien.wav"
         sf.write(nombre_salida, audio_alien,sr)
 
-    def procesar_audio_grave(audio):
+    def procesar_audio_radio(audio):
 
         # Cargar el audio de ruido de fondo de radio
         audio_radio = "./filter/radio.wav"
@@ -86,6 +86,46 @@ class audio:
         ruta="./data/audionuevo"
         nombre_salida = f"{ruta[:-5]}_radio.wav"
         sf.write(nombre_salida, eq_audio,sr)
+
+    def procesar_audio_grave(audio):
+        
+        ruta="./data/audionuevo"
+        nombre_salida = f"{ruta[:-5]}_robot.wav"
+        audio.export(nombre_salida, format="wav")
+        y, sr = librosa.load('./data/audio_robot.wav')
+        # Obtener las frecuencias fundamentales (tonos) del audio
+        pitches, magnitudes = librosa.piptrack(y=y, sr=sr)
+
+        # Ajustar las frecuencias fundamentales al tono deseado cuanto mayor sea el numero peor sonara
+        target_pitch = 11.0
+        pitches = pitches * (target_pitch / np.mean(pitches))
+
+        # Calcular la diferencia de tono entre las frecuencias originales y las ajustadas
+        pitch_diff = np.mean(pitches, axis=0) - np.median(pitches)
+
+        # Aplicar el cambio de tono al audio original frame por frame
+        robot = np.zeros_like(y)
+        for i, diff in enumerate(pitch_diff):
+            y_frame = y[i * len(y) // len(pitch_diff):(i + 1) * len(y) // len(pitch_diff)]
+            robot_frame = librosa.effects.pitch_shift(y_frame, sr=sr, n_steps=-diff)
+            robot[i * len(y) // len(pitch_diff):(i + 1) * len(y) // len(pitch_diff)] = robot_frame
+
+        # Exportar el resultado a un nuevo archivo de audio
+
+
+        shifted = robot * (2 ** 31 - 1)   # Data ranges from -1.0 to 1.0
+        robot = shifted.astype(np.int32)
+
+        sound = AudioSegment(
+            robot.tobytes(),
+            frame_rate=sr,
+            sample_width = np.dtype(robot.dtype).itemsize,
+            channels=1
+        )
+        nuevoaudio = sound._spawn(sound.raw_data)
+        ruta="./data/audionuevo"
+        nombre_salida = f"{ruta[:-5]}_robot.wav"
+        nuevoaudio.export(nombre_salida, format="wav")
 
 
     def procesar_audio_cueva(audio):
