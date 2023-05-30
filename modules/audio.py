@@ -25,6 +25,28 @@ class audio:
         nombre_salida = f"{ruta[:-4]}_agudo.wav"
         nuevoaudio.export(nombre_salida, format="wav")
     
+    def procesar_audio_radio(audio):
+        audio1 = AudioSegment.from_wav(audio)
+
+        # Cargar el audio de ruido de fondo de radio
+        audio_radio = "radio.wav"
+        radio = AudioSegment.from_wav(audio_radio)
+        
+        # Ajustar la duración del ruido de fondo al mismo que el audio original
+        radio = radio[:len(audio1)]
+        
+        # Ajustar el volumen del ruido de fondo
+        ajuste = 10
+        radio = radio - ajuste  # Ajustar el rango del volumen aquí
+        
+        # Mezclar el audio original con el ruido de fondo
+        mixed_audio = audio1.overlay(radio)
+        
+        # Exportar el resultado a un nuevo archivo de audio
+        nuevo_audio = "audion_radio.wav"
+        mixed_audio.export(nuevo_audio, format="wav")
+    
+    
     def procesar_audio_grave(audio):
         #Cargamos el filtro de cueva
         filter = AudioSegment.from_file("./filter/Cave.wav")
@@ -36,7 +58,7 @@ class audio:
         #Transformamos el audio a un array numpy
         audio1 = np.array(audio.get_array_of_samples())
 
-        #Utilizamos convolve para a�adir el efecto al audio
+        #Utilizamos convolve para a�adir el efecto al audio
         audio1_conv = signal.convolve(filter_norm, audio1)
 
         #Normalizamos de nuevo el audio
