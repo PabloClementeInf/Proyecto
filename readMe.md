@@ -41,7 +41,7 @@ proyecto: carpeta principal del proyecto en la que encontramos los siquientes ar
 - --gui.py: interfaz del proyecto donde tambien implementamos alguna funcionalidad como el reproductor de audios gracias al paquete PyQT.
 - --audio.py: donde tenemos las funcionalidades del proyecto relacionadas con el tratamiento de audios como son los filtros.
 - data: carpeta con todos los audios con los que se trabaje y donde se extraeran los resultados.
-- filters: Carpeta que contiene .wavs necesarios para algunos filtros.
+- filter: Carpeta que contiene .wavs necesarios para algunos filtros.
 - --cave.wav
 - --radio.wav
 ### Filtros y funcionalidades:
