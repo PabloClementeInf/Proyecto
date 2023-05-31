@@ -33,7 +33,7 @@ proyecto: carpeta principal del proyecto en la que encontramos los siquientes ar
 
 #### Filtro agudo y Grave
 
-En estos filtros modificamos el tono de nuestra señal de entrada, para ello utilizamos la la función pitch_shift() de la biblioteca librosa , Cambiar el tono de una señal implica modificar su frecuencia fundamental, esto lo  conseguimos con la función pitch_shift() . Esta función aplica un desplazamiento en la frecuencia de la señal de audio original para lograr el cambio de tono deseado. Los parámetros utilizados en la función son los siguientes:
+En estos filtros modificamos el tono de nuestra señal de entrada, para ello utilizamos la la función pitch_shift() de la biblioteca librosa , Cambiar el tono de una señal implica modificar su frecuencia fundamental. Esta función aplica un desplazamiento en la frecuencia de la señal de audio original para lograr el cambio de tono deseado. Los parámetros utilizados en la función son los siguientes:
 
 y: La forma de onda de audio original.
 
