@@ -1,6 +1,9 @@
 # Proyecto de teoria de PDS 
 ## Procesador de audio
 ##### Autores:  Manuel Medina Martín, Pablo Clemente Infantes, Amador Carmona Méndez y Amadeo Martínez Sánchez
+### Introducción
+Hemos creado una aplicación que nos permite aplicar un gran número de cuestiones que hemos visto en prácticas y teoría sobre el tratamiento de señales en nuestro caso de señales de audio. 
+
 ### Requisitos para poder ejecutar nuestro proyecto:
 Instalar con pip install PyQT, pydub y scipy con los siguientes comandos:
 ~~~bash
@@ -55,7 +58,7 @@ En este filtro como hemos visto en una de las practicas aplicamos al audio de en
 
 #### Filtro Radio
 
-En este filtro lo que hacemos es crear ruido de fondo en nuestro audio de entrada para ello mezclamos la señal de audio original y una señal nueva creada con la duración de el audio de entrada del ruido de fondo. Esto superpone el ruido de fondo al audio original.
+En este filtro lo que hacemos es crear ruido de fondo en nuestro audio de entrada para ello mezclamos la señal de audio original y una señal nueva creada con la duración de el audio de entrada del ruido de fondo y la superponesmo co la funcion Overlay de AudioSegment.
 Despues ecualizamos el audio multiplicándolo por un factor específico (10 ** (-10 / 20)). Esto ajusta los niveles de amplitud en relación con una referencia y puede tener un efecto de realce o atenuación en diferentes frecuencias.
 Por ultimo normalizamos el audio para evitar distorsiones dividiendo cada elemento por el valor máximo absoluto de todos los elementos del arreglo. Esto asegura que la amplitud del audio esté en el rango adecuado.
 
