@@ -31,7 +31,7 @@ class audio:
         nombre_salida = f"{ruta[:-5]}_agudo.wav"
         sf.write(nombre_salida, nuevotono,sr)
     
-    def procesar_audio_ave(audio):
+    def procesar_audio_grave(audio):
         
         ruta="./data/audionuevo"
         nombre_salida = f"{ruta[:-5]}_grave.wav"
@@ -87,7 +87,7 @@ class audio:
         nombre_salida = f"{ruta[:-5]}_radio.wav"
         sf.write(nombre_salida, eq_audio,sr)
 
-    def procesar_audio_grave(audio):
+    def procesar_audio_robot(audio):
         
         ruta="./data/audionuevo"
         nombre_salida = f"{ruta[:-5]}_robot.wav"
