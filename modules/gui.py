@@ -147,9 +147,9 @@ class Interfaz(QMainWindow):
         opciones = {
             0: self.procesar_audio_grave,
             1: self.procesar_audio_agudo,
-            2: self.procesar_audio_cueva,
-            3: self.procesar_audio_alien,
-            4: self.procesar_audio_robot,
+            2: self.procesar_audio_alien,
+            3: self.procesar_audio_robot,
+            4: self.procesar_audio_cueva,
             5: self.procesar_audio_radio
         }
         # Obtener la función correspondiente al índice seleccionado
@@ -172,27 +172,27 @@ class Interfaz(QMainWindow):
 
     def procesar_audio_grave(self):
         print("Procesando audio grave")
-        # Lógica para procesar audio grave
+        audio.procesar_audio_grave(self.aud)
 
     def procesar_audio_agudo(self):
         print("Procesando audio agudo")
-        # Lógica para procesar audio agudo
+        audio.procesar_audio_agudo(self.aud)
 
     def procesar_audio_cueva(self):
         print("Procesando audio de la cueva")
-        # Lógica para procesar audio de la cueva
+        audio.procesar_audio_cueva(self.aud)
 
     def procesar_audio_alien(self):
         print("Procesando audio alienígena")
-        # Lógica para procesar audio alienígena
+        audio.procesar_audio_alien(self.aud)
 
     def procesar_audio_robot(self):
         print("Procesando audio de robot")
-        # Lógica para procesar audio de robot
+        audio.procesar_audio_robot(self.aud)
 
     def procesar_audio_radio(self):
         print("Procesando audio de la radio")
-        # Lógica para procesar audio de la radio
+        audio.procesar_audio_radio(self.aud)
 
     
            
