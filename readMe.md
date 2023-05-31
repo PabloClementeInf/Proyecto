@@ -2,7 +2,7 @@
 ## Procesador de audio
 ##### Autores:  Manuel Medina Martín, Pablo Clemente Infantes, Amador Carmona Méndez y Amadeo Martínez Sánchez
 ### Introducción
-Hemos creado una aplicación que nos permite aplicar un gran número de cuestiones que hemos visto en prácticas y teoría sobre el tratamiento de señales en nuestro caso de señales de audio. 
+Hemos creado una aplicación que nos permite aplicar un gran número de cuestiones que hemos visto en prácticas y teoría sobre el tratamiento de señales en nuestro caso de señales de audio. Es una aplicación en la cual podemos procesar audios mediante distintos filtros, asi como grabarlos y escucharlos.
 
 ### Requisitos para poder ejecutar nuestro proyecto:
 Instalar con pip install PyQT, pydub y scipy con los siguientes comandos:
@@ -10,12 +10,22 @@ Instalar con pip install PyQT, pydub y scipy con los siguientes comandos:
 $pip install PyQT5
 $pip install pydub
 $pip install scipy
+$pip install python-time
+$pip install librosa
+$pip install soundfile
+$pip install random.
 ~~~
 Documentacion de pydub: https://github.com/jiaaro/pydub 
 
 Documentacion de PyQT: https://doc.qt.io/qtforpython-6/
 
 Documentacion de scipy: https://docs.scipy.org/doc/scipy/
+
+Documentacion de python-time: https://docs.python.org/3/library/time.html
+
+Documentacion de librosa: https://librosa.org/doc/latest/index.html
+
+Documentacion de random: https://docs.python.org/3/library/random.html
 
 ### Ejecucion de nuestro proyecto:
 Para ejecutar nuestro proyecto ejecutar hay que ejecutar el main con el comando:
