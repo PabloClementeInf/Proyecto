@@ -59,7 +59,7 @@ En este filtro lo que hacemos es crear ruido de fondo en nuestro audio de entrad
 Despues ecualizamos el audio multiplicándolo por un factor específico (10 ** (-10 / 20)). Esto ajusta los niveles de amplitud en relación con una referencia y puede tener un efecto de realce o atenuación en diferentes frecuencias.
 Por ultimo normalizamos el audio para evitar distorsiones dividiendo cada elemento por el valor máximo absoluto de todos los elementos del arreglo. Esto asegura que la amplitud del audio esté en el rango adecuado.
 
-####Filtro Alien
+#### Filtro Alien
 
 En este filtro creamos una señal portadora utilizando la función np.sin(). Esta señal portadora es una onda sinusoidal con una frecuencia de 1500 Hz y una duración basada en el tiempo de la señal de audio de entrada. La frecuencia de la señal portadora puede ajustarse según se desee para obtener diferentes efectos de sonido.
 Tras esto modificamos la señal de audio y multiplicándola por dos veces la señal portadora. Esto modula la señal de audio original con la señal portadora, lo que produce un efecto de modulación de amplitud (AM). La multiplicación de las señales mezcla las características de la señal de audio original con las características de la señal portadora, lo que genera el efecto de sonido alienígena
